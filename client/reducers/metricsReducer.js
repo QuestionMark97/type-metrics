@@ -7,12 +7,16 @@ const initialState = {
 };
 
 function metricsReducer(state = initialState, action) {
-  const { text, input, time } = action.payload;
+  let text; let time; let input;
 
   switch (action.type) {
     case types.RECALC_WPM:
+      text = action.payload.text;
+      time = action.payload.time;
       return { ...state, ...{ WPM: WPM(text, time) } };
     case types.RECALC_MSDER:
+      text = action.payload.text;
+      input = action.payload.input;
       return { ...state, ...{ MSDER: levenshtein(text, input) } };
     default:
       return state;
