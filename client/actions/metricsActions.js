@@ -7,9 +7,9 @@ export function recalcWPM(text, time) {
   };
 }
 
-export function recalcMSDER(str1, str2) {
+export function recalcMSD(str1, str2) {
   return {
-    type: types.RECALC_MSDER,
+    type: types.RECALC_MSD,
     payload: { str1, str2 }
   };
 }

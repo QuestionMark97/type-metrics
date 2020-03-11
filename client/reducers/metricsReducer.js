@@ -3,7 +3,7 @@ import { WPM, levenshtein } from '../helpers/helpers';
 
 const initialState = {
   WPM: undefined,
-  MSDER: undefined
+  MSD: undefined
 };
 
 function metricsReducer(state = initialState, action) {
@@ -14,10 +14,10 @@ function metricsReducer(state = initialState, action) {
       text = action.payload.text;
       time = action.payload.time;
       return { ...state, ...{ WPM: WPM(text, time) } };
-    case types.RECALC_MSDER:
+    case types.RECALC_MSD:
       text = action.payload.text;
       input = action.payload.input;
-      return { ...state, ...{ MSDER: levenshtein(text, input) } };
+      return { ...state, ...{ MSD: levenshtein(text, input) } };
     default:
       return state;
   }
