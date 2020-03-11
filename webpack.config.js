@@ -26,6 +26,6 @@ module.exports = {
     ]
   },
   devServer: {
-    contentBase: path.join(__dirname, 'client')
+    contentBase: path.resolve(__dirname, 'client')
   }
 };
