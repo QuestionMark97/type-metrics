@@ -1,17 +1,34 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { updatePosition, addError } from '../actions/textActions';
+import Character from '../components/Character.jsx';
 
 function TextDisplay(props) {
+  const text = 'Hello world';
+  const statefullText = [];
+
+  for (let i = 0; i < text.length; i++) {
+    let color = '';
+    if (props.position > i) {
+      if (props.errors[i]) color = 'red';
+      else color = 'green';
+    } else color = 'grey';
+
+    statefullText.push(<Character key={`char_${i}`} color={color} value={text[i]} />);
+  }
+
   return (
-    <div>TextDisplay</div>
+    <Fragment>
+      <div>TextDisplay</div>
+      {statefullText}
+    </Fragment>
   );
 }
 
 function mapStateToProps(state) {
   return {
     position: state.text.position,
-    metrics: state.text.errors
+    errors: state.text.errors
   };
 }
 
