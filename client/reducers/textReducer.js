@@ -7,7 +7,7 @@ const initialState = {
 
 function textReducer(state = initialState, action) {
   let { position } = state;
-  const { errors } = state.errors;
+  const { errors } = state;
 
   switch (action.type) {
     case types.ADD_ERROR:
@@ -15,6 +15,7 @@ function textReducer(state = initialState, action) {
       return { ...state, ...{ errors } };
     case types.UPDATE_POSITION:
       position += action.payload;
+      if (action.payload - 1) delete errors[position];
       return { ...state, ...{ position } };
     default:
       return state;

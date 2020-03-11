@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes';
-import { WPM, levenshtein } from '../helpers/helpers';
+import { WPM, levenshtein } from '../helpers/reducerHelpers';
 
 const initialState = {
   WPM: undefined,

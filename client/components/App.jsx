@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import TextDisplay from '../containers/TextDisplay.jsx';
 import MetricsDisplay from '../containers/MetricsDisplay.jsx';
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <Fragment>
         <h1>Type Metrics</h1>
         <MetricsDisplay />
         <TextDisplay />
-      </div>
+      </Fragment>
     );
   }
 }
