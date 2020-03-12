@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updatePosition, addError } from '../actions/textActions';
 import Character from '../components/Character.jsx';
@@ -7,33 +7,33 @@ import keyHandler from '../helpers/eventHandlers';
 class TextDisplay extends Component {
   constructor(props) {
     super(props);
-    this.state = { text: 'Hello world' };
-    document.onkeydown = (event) => keyHandler(event, this.state.text, this.props);
+    document.onkeydown = (event) => keyHandler(event, this.props);
   }
 
   render() {
     const statefullText = [];
 
-    for (let i = 0; i < this.state.text.length; i++) {
+    for (let i = 0; i < this.props.text.length; i++) {
       let color = '';
       if (this.props.position > i) {
         if (this.props.errors[i]) color = 'red';
         else color = 'green';
       } else color = 'grey';
 
-      statefullText.push(<Character key={`char_${i}`} color={color} value={this.state.text[i]} />);
+      statefullText.push(<Character key={`char_${i}`} color={color} value={this.props.text[i]} />);
     }
     return (
-      <Fragment>
+      <div id='text-display'>
         <div>TextDisplay</div>
         {statefullText}
-      </Fragment>
+      </div>
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
+    text: state.text.text,
     position: state.text.position,
     errors: state.text.errors
   };

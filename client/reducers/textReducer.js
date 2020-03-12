@@ -1,6 +1,7 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
+  text: 'Hello World',
   position: 0,
   errors: {}
 };

@@ -1,6 +1,6 @@
 // WPM helper function
 export function WPM(str, time) {
-  return ((str.length / time) * 60000);
+  return ((str.split(' ').length / time) * 6000).toFixed(2);
 }
 
 // Levenshtein distance helper function

@@ -15,8 +15,8 @@ function metricsReducer(state = initialState, action) {
       time = action.payload.time;
       return { ...state, ...{ WPM: WPM(text, time) } };
     case types.RECALC_MSD:
-      text = action.payload.text;
-      input = action.payload.input;
+      text = action.payload.str1;
+      input = action.payload.str2;
       return { ...state, ...{ MSD: levenshtein(text, input) } };
     default:
       return state;
