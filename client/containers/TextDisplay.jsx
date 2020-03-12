@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updatePosition, addError } from '../actions/textActions';
+import { updateInput } from '../actions/metricsActions';
 import Character from '../components/Character.jsx';
-import keyHandler from '../helpers/eventHandlers';
+import { keyHandler } from '../helpers/eventHandlers';
 
 class TextDisplay extends Component {
   constructor(props) {
     super(props);
-    document.onkeydown = (event) => keyHandler(event, this.props);
+    document.addEventListener('keydown', (event) => keyHandler(event, this.props));
   }
 
   render() {
@@ -43,7 +44,9 @@ function mapDispatchToProps(dispatch) {
   return {
     forward: (...args) => dispatch(updatePosition(1, ...args)),
     back: (...args) => dispatch(updatePosition(-1, ...args)),
-    addError: (...args) => dispatch(addError(...args))
+    addError: (...args) => dispatch(addError(...args)),
+    inputForward: (...args) => dispatch(updateInput(1, ...args)),
+    inputBack: (...args) => dispatch(updateInput(-1, ...args))
   };
 }
 

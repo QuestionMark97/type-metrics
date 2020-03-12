@@ -13,3 +13,14 @@ export function recalcMSD(str1, str2) {
     payload: { str1, str2 }
   };
 }
+
+export function updateInput(increment, char) {
+  return {
+    type: types.UPDATE_INPUT,
+    payload: { increment, char }
+  };
+}
+
+export function setTime() {
+  return { type: types.SET_TIME };
+}
