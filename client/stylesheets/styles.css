@@ -1,0 +1,55 @@
+body {
+  background-color: #f4f4f4;
+}
+
+#root {
+  width 100vw;
+  margin: 5vw;
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+}
+
+h1 {
+  color: #00000099;
+}
+
+#text-display {
+  display: inline-block;
+  width: 60vw;
+  background-color: #f8f8f8;
+}
+
+#text-title {
+  color: #333;
+  width: 100%;
+  border: 1px solid #00000044;
+  border-bottom-style: none; 
+  border-radius: 5px 5px 0 0;
+}
+
+#text {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  height: 12em;
+  border: 1px solid #00000044;
+  border-radius: 0 0 5px 5px;
+}
+
+#metrics-container {
+  width: 100%;
+  text-align: right;
+}
+
+#metrics-display {
+  display: inline-block;
+  padding: 5px;
+  color: #333;
+  border-left: 1px solid #00000044;
+  border-bottom: 1px solid #00000044;
+  text-align: left;
+}
+
+#chars {
+  font-size: 1.5em;
+}

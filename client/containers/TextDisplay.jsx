@@ -24,9 +24,13 @@ class TextDisplay extends Component {
       statefullText.push(<Character key={`char_${i}`} color={color} value={this.props.text[i]} />);
     }
     return (
-      <div id='text-display'>
-        <div>TextDisplay</div>
+      <div id = 'text-display'>
+      <div id='text-title'>TextDisplay</div>
+      <div id='text'>
+        <div id='chars'>
         {statefullText}
+        </div>
+      </div>
       </div>
     );
   }

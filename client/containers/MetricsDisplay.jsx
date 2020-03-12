@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   recalcWPM, recalcMSD, updateInput, setTime
@@ -15,11 +15,12 @@ class MetricsDisplay extends Component {
 
   render() {
     return (
-      <Fragment>
-        <div>MetricsDisplay</div>
+      <div id='metrics-container'>
+      <div id='metrics-display'>
         <WpmDisplay WPM={this.props.WPM} />
         <MsdDisplay MSD={this.props.MSD} />
-      </Fragment>
+      </div>
+      </div>
     );
   }
 }
