@@ -8,9 +8,6 @@ class TextDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = { text: 'Hello world' };
-  }
-
-  componentDidMount() {
     document.onkeydown = (event) => keyHandler(event, this.state.text, this.props);
   }
 
