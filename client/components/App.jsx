@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import TextDisplay from '../containers/TextDisplay.jsx';
 import MetricsDisplay from '../containers/MetricsDisplay.jsx';
+import Keyboard from './Keyboard.jsx';
 
 class App extends Component {
   render() {
@@ -9,6 +10,7 @@ class App extends Component {
         <h1>Type Metrics</h1>
         <MetricsDisplay />
         <TextDisplay />
+        <Keyboard />
       </Fragment>
     );
   }
