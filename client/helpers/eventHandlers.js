@@ -14,13 +14,22 @@ export function keyHandler(event, props) {
 
 
 export function timeHandler(event, props) {
-  if (event.keyCode === 8) {
-    event.preventDefault();
-  }
+  if (event.keyCode === 8) event.preventDefault();
   if (props.position === 0) props.setTime();
   if (props.position === props.text.length - 1) {
     props.recalcWPM(props.text, new Date() - props.startTime);
     props.recalcMSD(props.text, props.input + event.key);
   }
   return false;
+}
+
+
+export function keydownHandler(event, props) {
+  if (event.keyCode === 8) event.preventDefault();
+  props.highlightKey(event.keyCode);
+}
+
+export function keyupHandler(event, props) {
+  if (event.keyCode === 8) event.preventDefault();
+  props.unhighlightKey(event.keyCode);
 }
