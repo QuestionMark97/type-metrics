@@ -75,6 +75,8 @@ export function keyCodeToMatPos(keyCode) {
       return [2, 5];
     case 77:
       return [2, 6];
+    case 32:
+      return [3, 0];
     default:
       return [-1, -1];
   }

@@ -68,21 +68,24 @@ h1 {
   flex-direction: row;
 }
 
-#row_1 {
-  margin-left: 15px;
-}
-
-#row_2 {
-  margin-left: 40px;
+#arrowrow1 {
+  margin-left: 30.7px;
 }
 
 .key {
+  height: 40px;
   margin: 2px;
   font-size: 1.5em;
   font-family: "Courier New", Courier, monospace;
-  width: 40px;
-  height: 40px;
   border: 1px solid #00000044;
   border-radius: 2.5px;
+}
+
+.charkey {
+  width: 40px;
+}
+
+#spacebar {
+  width: 224px;
   background-color: #f8f8f8;
 }

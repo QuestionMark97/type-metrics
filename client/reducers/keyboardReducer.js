@@ -16,6 +16,9 @@ const initialState = {
     [
       [bkrnd, clr], [bkrnd, clr], [bkrnd, clr], [bkrnd, clr], [bkrnd, clr],
       [bkrnd, clr], [bkrnd, clr]
+    ],
+    [
+      [bkrnd, clr]
     ]
   ]
 };

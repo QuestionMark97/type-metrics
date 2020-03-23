@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { keydownHandler, keyupHandler } from '../helpers/eventHandlers';
 import { highlightKey, unhighlightKey } from '../actions/keyboardActions';
 import KeyRow from '../components/KeyRow.jsx';
+import SpaceRow from './SpaceRow.jsx';
 
 function Keyboard(props) {
   document.addEventListener('keydown', (event) => keydownHandler(event, props));
@@ -20,6 +21,7 @@ function Keyboard(props) {
     <div id='keyboard-container'>
     <div id='keyboard'>
       {rows}
+      <SpaceRow />
     </div>
     </div>
   );
