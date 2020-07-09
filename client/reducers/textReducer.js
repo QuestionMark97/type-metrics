@@ -1,14 +1,14 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-  text: 'Hello World',
+  text: 'library libe emblige debted nobody puble noblight rob hably nobodys reby labour oblige unbened debts lable but embarn',
   position: 0,
   errors: {}
 };
 
 function textReducer(state = initialState, action) {
   let { position } = state;
-  const { errors } = state;
+  let { errors } = state;
 
   switch (action.type) {
     case types.ADD_ERROR:
@@ -19,6 +19,11 @@ function textReducer(state = initialState, action) {
       position += action.payload;
       if (action.payload - 1) delete errors[position];
       return { ...state, ...{ position } };
+
+    case types.RESET_TEXT:
+      position = 0;
+      errors = {};
+      return { ...state, ... { position }, ... { errors } };
 
     default:
       return state;

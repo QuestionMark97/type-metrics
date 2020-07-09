@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updatePosition, addError } from '../actions/textActions';
+import { updatePosition, addError, resetText } from '../actions/textActions';
 import { updateInput } from '../actions/metricsActions';
 import Character from '../components/Character.jsx';
 import { keyHandler } from '../helpers/eventHandlers';
@@ -24,7 +24,7 @@ class TextDisplay extends Component {
       statefullText.push(<Character key={`char_${i}`} color={color} value={this.props.text[i]} />);
     }
     return (
-      <div id = 'text-display'>
+      <div id='text-display'>
       <div id='text-title'>TextDisplay</div>
       <div id='text'>
         <div id='chars'>
@@ -50,7 +50,8 @@ function mapDispatchToProps(dispatch) {
     back: (...args) => dispatch(updatePosition(-1, ...args)),
     addError: (...args) => dispatch(addError(...args)),
     inputForward: (...args) => dispatch(updateInput(1, ...args)),
-    inputBack: (...args) => dispatch(updateInput(-1, ...args))
+    inputBack: (...args) => dispatch(updateInput(-1, ...args)),
+    resetText: (...args) => dispatch(resetText(...args))
   };
 }
 

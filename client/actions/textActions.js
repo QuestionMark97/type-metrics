@@ -10,3 +10,7 @@ export function updatePosition(increment) {
     payload: increment
   };
 }
+
+export function resetText() {
+  return { type: types.RESET_TEXT };
+}

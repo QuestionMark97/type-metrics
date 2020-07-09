@@ -9,6 +9,7 @@ export function keyHandler(event, props) {
     props.forward();
     props.inputForward(event.key);
   }
+  if (props.position === props.text.length - 1) props.resetText();
   return true;
 }
 
