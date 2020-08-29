@@ -15,7 +15,7 @@ app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler caught unkown middleware error',
     status: 500,
-    msg: { err: 'An unknown error occured' }
+    msg: { err: 'An error occured.  See logs for details' }
   };
   const errorObj = { ...defaultErr, ...err };
   console.log(errorObj.log);
