@@ -1,3 +1,5 @@
+const { isLetter, classify } = require('../helpers/charMap');
+
 function MarkovChain(textData) {}
 
 // Get words from text
