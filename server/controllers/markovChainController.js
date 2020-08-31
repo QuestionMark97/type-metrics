@@ -11,7 +11,7 @@ markovChainController.getChain = (req, res, next) => {
       log: err,
       msg: { err: "Something went wrong with 'getChain' middleware in markovChainController. See logs for details" } });
     const englishChain = new MarkovChain(corpus);
-    res.locals.chain = englishChain;
+    res.locals.chain = englishChain.getChain();
     return next();
   });
 };
