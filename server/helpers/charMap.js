@@ -33,7 +33,7 @@ const charMap = {
 
 // Determine if letter is a consonant
 charMap._isConsonant = function isConsonant(char) {
-  if (typof char !== 'string') return false;
+  if (typeof char !== 'string') return false;
   return (this.consonants[char.toLowerCase()]) ? true : false;
 };
 
@@ -45,7 +45,7 @@ charMap._isVowel = function isVowel(char) {
 
 // Determine if character is a letter
 charMap.isLetter = function isLetter(char) {
-  if (typof char !== 'string') return false;
+  if (typeof char !== 'string') return false;
   return (this.vowels[char.toLowerCase()] || this.consonants[char.toLowerCase()]) ? true : false;
 };
 

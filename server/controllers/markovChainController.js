@@ -1,14 +1,17 @@
 const fs = require('fs');
+const path = require('path');
 const MarkovChain = require('../classes/MarkovChain');
 
 const markovChainController = {};
 
-// Acquire Markov chain for text generation
+// Acquire Markov chain object for text generation
 markovChainController.getChain = (req, res, next) => {
-  fs.readFile('../corpus/corpus.txt', { encoding: 'utf8', flag: 'r' }, (err, corpus) => {
-    if (err) return next({ log: "Something went wrong with 'getChain' middleware in markovChainController" });
+  fs.readFile(path.resolve(__dirname, '../corpus/corpus.txt'), { encoding: 'utf8', flag: 'r' }, (err, corpus) => {
+    if (err) return next({ 
+      log: err,
+      msg: { err: "Something went wrong with 'getChain' middleware in markovChainController. See logs for details" } });
     const englishChain = new MarkovChain(corpus);
-    res.local.chain = englishChain;
+    res.locals.chain = englishChain;
     return next();
   });
 };
