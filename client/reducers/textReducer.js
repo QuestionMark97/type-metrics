@@ -1,14 +1,15 @@
 import * as types from '../constants/actionTypes';
+import TextGenerator from '../classes/TextGenerator';
 
 const initialState = {
-  text: 'library libe emblige debted nobody puble noblight rob hably nobodys reby labour oblige unbened debts lable but embarn',
+  textGenerator: {},
+  text: '',
   position: 0,
   errors: {}
 };
 
 function textReducer(state = initialState, action) {
-  let { position } = state;
-  let { errors } = state;
+  let { text, position, errors } = state;
 
   switch (action.type) {
     case types.ADD_ERROR:
@@ -21,16 +22,19 @@ function textReducer(state = initialState, action) {
       return { ...state, ...{ position } };
 
     case types.RESET_TEXT:
+      text = state.textGenerator.generateSentence(70);
       position = 0;
       errors = {};
-      return { ...state, ... { position }, ... { errors } };
-
-    case types.GET_MARKOV_CHAIN:
-      return state;
+      return { ...state, ...{ text }, ...{ position }, ...{ errors } };
 
     case types.MARKOV_RECEIVED:
-      console.log(action.payload);
-      return state;
+      const textGenerator = new TextGenerator(action.payload, {
+        prob: 0.8,
+        min: 3,
+        max: 7
+      });
+      text = textGenerator.generateSentence(70);
+      return { ...state, ...{ textGenerator }, ...{ text } };
 
     default:
       return state;
