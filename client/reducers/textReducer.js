@@ -25,6 +25,13 @@ function textReducer(state = initialState, action) {
       errors = {};
       return { ...state, ... { position }, ... { errors } };
 
+    case types.GET_MARKOV_CHAIN:
+      return state;
+
+    case types.MARKOV_RECEIVED:
+      console.log(action.payload);
+      return state;
+
     default:
       return state;
   }
