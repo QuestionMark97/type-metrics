@@ -7,3 +7,5 @@ export const SET_TIME = 'SET_TIME';
 export const UPDATE_INPUT = 'UPDATE_INPUT';
 export const HIGHLIGHT_KEY = 'HIGHLIGHT_KEY';
 export const UNHIGHLIGHT_KEY = 'UNHIGHLIGHT_KEY';
+export const GET_MARKOV_CHAIN = 'GET_MARKOV_CHAIN';
+export const MARKOV_RECEIVED = 'MARKOV_RECEIVED';

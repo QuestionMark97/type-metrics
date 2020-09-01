@@ -26,6 +26,13 @@ module.exports = {
     ]
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'client')
+    publicPath: '/client/build',
+    contentBase: path.resolve(__dirname, './client'),
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        pathRewrite: {'^/api' : ''}
+      }
+    }
   }
 };

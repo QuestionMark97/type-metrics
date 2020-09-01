@@ -14,3 +14,7 @@ export function updatePosition(increment) {
 export function resetText() {
   return { type: types.RESET_TEXT };
 }
+
+export function getMarkovChain() {
+  return { type: types.GET_MARKOV_CHAIN };
+}

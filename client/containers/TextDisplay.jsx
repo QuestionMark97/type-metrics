@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updatePosition, addError, resetText } from '../actions/textActions';
+import { updatePosition, addError, resetText, getMarkovChain } from '../actions/textActions';
 import { updateInput } from '../actions/metricsActions';
 import Character from '../components/Character.jsx';
 import { keyHandler } from '../helpers/eventHandlers';
@@ -9,6 +9,7 @@ class TextDisplay extends Component {
   constructor(props) {
     super(props);
     document.addEventListener('keydown', (event) => keyHandler(event, this.props));
+    props.getMarkovChain();
   }
 
   render() {
@@ -51,7 +52,8 @@ function mapDispatchToProps(dispatch) {
     addError: (...args) => dispatch(addError(...args)),
     inputForward: (...args) => dispatch(updateInput(1, ...args)),
     inputBack: (...args) => dispatch(updateInput(-1, ...args)),
-    resetText: (...args) => dispatch(resetText(...args))
+    resetText: (...args) => dispatch(resetText(...args)),
+    getMarkovChain: (...args) => dispatch(getMarkovChain(...args))
   };
 }
 
