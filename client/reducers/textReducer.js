@@ -33,6 +33,8 @@ function textReducer(state = initialState, action) {
         min: 3,
         max: 7
       });
+      textGenerator.setChars('enitrlsauodychgmpbkvwfzxqj');
+      textGenerator.addChars(5);
       text = textGenerator.generateSentence(70);
       return { ...state, ...{ textGenerator }, ...{ text } };
 

@@ -6,7 +6,7 @@ function TextGenerator(chainObj, options) {
   this._min = min;
   this._max = max;
   this._charsObj = {};
-  this._charsArr = '';
+  this._charsArr = [];
 }
 
 // Validate character cluster given allowed letters
@@ -60,8 +60,9 @@ TextGenerator.prototype.setChars = function setChars(charsStr) {
 };
 
 // Move letters from char arr to char obj
-TextGenerator.prototype.addChar = function addChar(num = 1) {
+TextGenerator.prototype.addChars = function addChars(num = 1) {
   for (let i = 0; i < num; i++) this._charsObj[this._charsArr.pop()] = true;
+  this._filterStates();
 };
 
 // Generate sentence from chain object
