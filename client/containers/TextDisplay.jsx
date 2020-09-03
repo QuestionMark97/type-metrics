@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updatePosition, addError, resetText, getMarkovChain } from '../actions/textActions';
-import { updateInput } from '../actions/metricsActions';
+import { updatePosition, addError, resetText, getMarkovChain, updateInput } from '../actions/textActions';
 import Character from '../components/Character.jsx';
 import { keyHandler } from '../helpers/eventHandlers';
 
@@ -37,11 +36,11 @@ class TextDisplay extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ text: state }) {
   return {
-    text: state.text.text,
-    position: state.text.position,
-    errors: state.text.errors
+    text: state.text,
+    position: state.position,
+    errors: state.errors
   };
 }
 

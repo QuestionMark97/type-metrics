@@ -4,7 +4,7 @@ function WpmDisplay(props) {
   return (
     <div id='wpm-display'>
       <span>WPM: </span>
-      <span>{props.WPM}</span>
+      <span>{props.wpm}</span>
     </div>
   );
 }
