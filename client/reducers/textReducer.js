@@ -16,7 +16,7 @@ const initialState = {
 function textReducer(state = initialState, action) {
   const WORD_COUNT = 5;
   let { text, position, errors } = state;
-  let time; let input; let wpm;
+  let time; let input; let wpm; let newTime;
 
   switch (action.type) {
     case types.MARKOV_RECEIVED:
@@ -50,13 +50,7 @@ function textReducer(state = initialState, action) {
       return { ...state, ...{ wpm } };
 
     case types.RECALC_ERR:
-      input = action.payload.str2;
       return { ...state, ...{ errCount: Object.keys(errors).length } };
-
-    case types.UPDATE_INPUT:
-      if (action.payload.increment - 1) input = state.input.slice(0, state.input.length - 1);
-      else input = state.input + action.payload.char;
-      return { ...state, ...{ input } };
 
     default:
       return state;
