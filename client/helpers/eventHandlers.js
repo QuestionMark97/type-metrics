@@ -1,29 +1,21 @@
 export function keyHandler(event, props) {
   if (event.keyCode === 8) {
+    event.preventDefault();
     props.back();
-    props.inputBack();
     return false;
   }
   if (event.keyCode === 32 || (event.keyCode >= 65 && event.keyCode <= 90)) {
     if (event.key !== props.text[props.position]) props.addError();
     props.forward();
-    props.inputForward(event.key);
   }
-  if (props.position === props.text.length - 1) props.resetText();
-  return true;
-}
-
-
-export function timeHandler(event, props) {
-  if (event.keyCode === 8) event.preventDefault();
   if (props.position === 0) props.setTime();
   if (props.position === props.text.length - 1) {
     props.recalcWpm(props.text, new Date() - props.startTime);
-    props.recalcErr(props.text, props.input + event.key);
+    props.recalcErr();
+    props.resetText();
   }
-  return false;
+  return true;
 }
-
 
 export function keydownHandler(event, props) {
   if (event.keyCode === 8) event.preventDefault();

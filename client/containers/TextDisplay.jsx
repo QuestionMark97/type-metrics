@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updatePosition, addError, resetText, getMarkovChain, updateInput } from '../actions/textActions';
+import * as actions from '../actions/textActions';
 import Character from '../components/Character.jsx';
 import { keyHandler } from '../helpers/eventHandlers';
 
@@ -40,19 +40,21 @@ function mapStateToProps({ text: state }) {
   return {
     text: state.text,
     position: state.position,
-    errors: state.errors
+    errors: state.errors,
+    startTime: state.startTime
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    forward: (...args) => dispatch(updatePosition(1, ...args)),
-    back: (...args) => dispatch(updatePosition(-1, ...args)),
-    addError: (...args) => dispatch(addError(...args)),
-    inputForward: (...args) => dispatch(updateInput(1, ...args)),
-    inputBack: (...args) => dispatch(updateInput(-1, ...args)),
-    resetText: (...args) => dispatch(resetText(...args)),
-    getMarkovChain: (...args) => dispatch(getMarkovChain(...args))
+    forward: (...args) => dispatch(actions.updatePosition(1, ...args)),
+    back: (...args) => dispatch(actions.updatePosition(-1, ...args)),
+    addError: (...args) => dispatch(actions.addError(...args)),
+    resetText: (...args) => dispatch(actions.resetText(...args)),
+    getMarkovChain: (...args) => dispatch(actions.getMarkovChain(...args)),
+    setTime: (...args) => dispatch(actions.setTime(...args)),
+    recalcWpm: (...args) => dispatch(actions.recalcWpm(...args)),
+    recalcErr: (...args) => dispatch(actions.recalcErr(...args))
   };
 }
 

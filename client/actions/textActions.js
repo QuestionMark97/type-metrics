@@ -37,16 +37,6 @@ export function recalcWpm(text, time) {
   };
 }
 
-export function recalcErr(str1, str2) {
-  return {
-    type: types.RECALC_ERR,
-    payload: { str1, str2 }
-  };
-}
-
-export function updateInput(increment, char) {
-  return {
-    type: types.UPDATE_INPUT,
-    payload: { increment, char }
-  };
+export function recalcErr() {
+  return { type: types.RECALC_ERR };
 }
