@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes';
 import TextGenerator from '../classes/TextGenerator';
-import { WPM, levenshtein } from '../helpers/reducerHelpers';
+import { WPM } from '../helpers/reducerHelpers';
 
 const initialState = {
   textGenerator: {},
@@ -14,9 +14,9 @@ const initialState = {
 };
 
 function textReducer(state = initialState, action) {
-  const WORD_COUNT = 70;
+  const WORD_COUNT = 5;
   let { text, position, errors } = state;
-  let time; let input;
+  let time; let input; let wpm;
 
   switch (action.type) {
     case types.MARKOV_RECEIVED:
@@ -46,11 +46,12 @@ function textReducer(state = initialState, action) {
 
     case types.RECALC_WPM:
       time = action.payload.time;
-      return { ...state, ...{ wpm: WPM(text, time) } };
+      wpm = ((text.split(' ').length / time) * 60000).toFixed(2);
+      return { ...state, ...{ wpm } };
 
     case types.RECALC_ERR:
       input = action.payload.str2;
-      return { ...state, ...{ errCount: levenshtein(text, input) } };
+      return { ...state, ...{ errCount: Object.keys(errors).length } };
 
     case types.UPDATE_INPUT:
       if (action.payload.increment - 1) input = state.input.slice(0, state.input.length - 1);
