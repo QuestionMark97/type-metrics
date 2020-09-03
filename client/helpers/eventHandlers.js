@@ -18,8 +18,8 @@ export function timeHandler(event, props) {
   if (event.keyCode === 8) event.preventDefault();
   if (props.position === 0) props.setTime();
   if (props.position === props.text.length - 1) {
-    props.recalcWPM(props.text, new Date() - props.startTime);
-    props.recalcMSD(props.text, props.input + event.key);
+    props.recalcWpm(props.text, new Date() - props.startTime);
+    props.recalcErr(props.text, props.input + event.key);
   }
   return false;
 }

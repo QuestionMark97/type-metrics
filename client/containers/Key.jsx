@@ -11,9 +11,9 @@ function Key(props) {
   );
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ keyboard: state }) {
   return {
-    colors: state.keyboard.color
+    colors: state.color
   };
 }
 
