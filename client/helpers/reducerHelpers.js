@@ -59,3 +59,23 @@ export function keyCodeToMatPos(keyCode) {
       return [-1, -1];
   }
 }
+
+// Function for calculating confidence
+export function getConfidence(charTimes) {
+  const confidence = {};
+  let globalSum = 0;
+  let globalLen = 0;
+  for (let char in charTimes) {
+    const localSum = charTimes[char].reduce((acc, val) => acc + val)
+    const localLen = charTimes[char].length;
+    const mean = localSum / localLen;
+    globalSum += localSum;
+    globalLen += localLen;
+    confidence[char] = mean;
+  }
+  for (let char in charTimes) {
+    confidence[char] = (globalSum / (globalLen * confidence[char])).toFixed(2);
+  }
+  console.log(confidence);
+  return confidence;
+}
