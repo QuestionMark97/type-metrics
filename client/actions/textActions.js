@@ -30,11 +30,8 @@ export function resetText() {
   return { type: types.RESET_TEXT };
 }
 
-export function recalcWpm(text, time) {
-  return {
-    type: types.RECALC_WPM,
-    payload: { text, time }
-  };
+export function recalcWpm() {
+  return { type: types.RECALC_WPM };
 }
 
 export function recalcErr() {

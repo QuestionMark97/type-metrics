@@ -10,7 +10,7 @@ export function keyHandler(event, props) {
   }
   if (props.position === 0) props.setTime();
   if (props.position === props.text.length - 1) {
-    props.recalcWpm(props.text, new Date() - props.startTime);
+    props.recalcWpm();
     props.recalcErr();
     props.resetText();
   }
