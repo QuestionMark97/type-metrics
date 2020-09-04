@@ -1,3 +1,4 @@
+import keyboardReducer from './keyboardReducer';
 import * as types from '../constants/actionTypes';
 import TextGenerator from '../classes/TextGenerator';
 import { WPM } from '../helpers/reducerHelpers';
@@ -12,13 +13,12 @@ const initialState = {
   startTime: 0,
   latestTime: 0,
   charTimes: {},
-  confidence: {}
+  keyboard: keyboardReducer()
 };
 
 function textReducer(state = initialState, action) {
   const WORD_COUNT = 5;
   let { text, position, errors, textGenerator, latestTime } = state;
-
   switch (action.type) {
     case types.MARKOV_RECEIVED:
       textGenerator = new TextGenerator(action.payload, { prob: 0.8, min: 3, max: 7 });
@@ -59,22 +59,8 @@ function textReducer(state = initialState, action) {
     case types.RECALC_ERR:
       return { ...state, ...{ errCount: Object.keys(errors).length } };
 
-    case types.RECALC_CONF:
-      const confidence = {};
-      let globalSum = 0;
-      let globalLen = 0;
-      for (let char in state.charTimes) {
-        const localSum = state.charTimes[char].reduce((acc, val) => acc + val)
-        const localLen = state.charTimes[char].length;
-        const mean = localSum / localLen;
-        globalSum += localSum;
-        globalLen += localLen;
-        confidence[char] = mean;
-      }
-      for (let char in state.charTimes) {
-        confidence[char] = (globalSum / (globalLen * confidence[char])).toFixed(2);
-      }
-      return { ...state, ...{ confidence } };
+    case types.KEYBOARD:
+      return { ...state, keyboard: keyboardReducer(state, state.keyboard, action) };
 
     default:
       return state;

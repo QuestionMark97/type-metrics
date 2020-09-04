@@ -26,7 +26,7 @@ module.exports = {
     ]
   },
   devServer: {
-    publicPath: '/client/build',
+    // publicPath: '/client/build',
     contentBase: path.resolve(__dirname, './client'),
     proxy: {
       '/api': {

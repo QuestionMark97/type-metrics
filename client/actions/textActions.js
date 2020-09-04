@@ -37,7 +37,3 @@ export function recalcWpm() {
 export function recalcErr() {
   return { type: types.RECALC_ERR };
 }
-
-export function recalcConf() {
-  return { type: types.RECALC_CONF };
-}
