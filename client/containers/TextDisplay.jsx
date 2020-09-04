@@ -54,7 +54,8 @@ function mapDispatchToProps(dispatch) {
     getMarkovChain: (...args) => dispatch(actions.getMarkovChain(...args)),
     setTime: (...args) => dispatch(actions.setTime(...args)),
     recalcWpm: (...args) => dispatch(actions.recalcWpm(...args)),
-    recalcErr: (...args) => dispatch(actions.recalcErr(...args))
+    recalcErr: (...args) => dispatch(actions.recalcErr(...args)),
+    recalcConf: (...args) => dispatch(actions.recalcConf(...args))
   };
 }
 

@@ -11,7 +11,8 @@ const initialState = {
   errCount: '--',
   startTime: 0,
   latestTime: 0,
-  charTimes: {  }
+  charTimes: {},
+  confidence: {}
 };
 
 function textReducer(state = initialState, action) {
@@ -48,16 +49,7 @@ function textReducer(state = initialState, action) {
 
     case types.RESET_TEXT:
       text = textGenerator.generateSentence(WORD_COUNT);
-      position = 0;
-      errors = {};
-      // Get avg times for each character
-      const obj = {};
-      for (let char in state.charTimes) {
-        const mean = state.charTimes[char].reduce((acc, val) => acc + val) / state.charTimes[char].length;
-        obj[char] = `${mean.toFixed()} ms`;
-      }
-      console.log(obj);
-      return { ...state, ...{ text, position, errors } };
+      return { ...state, ...{ text, position: 0, errors: {} } };
 
     case types.RECALC_WPM:
       const time = new Date() - state.startTime;
@@ -66,6 +58,23 @@ function textReducer(state = initialState, action) {
 
     case types.RECALC_ERR:
       return { ...state, ...{ errCount: Object.keys(errors).length } };
+
+    case types.RECALC_CONF:
+      const confidence = {};
+      let globalSum = 0;
+      let globalLen = 0;
+      for (let char in state.charTimes) {
+        const localSum = state.charTimes[char].reduce((acc, val) => acc + val)
+        const localLen = state.charTimes[char].length;
+        const mean = localSum / localLen;
+        globalSum += localSum;
+        globalLen += localLen;
+        confidence[char] = mean;
+      }
+      for (let char in state.charTimes) {
+        confidence[char] = (globalSum / (globalLen * confidence[char])).toFixed(2);
+      }
+      return { ...state, ...{ confidence } };
 
     default:
       return state;
