@@ -60,22 +60,24 @@ export function keyCodeToMatPos(keyCode) {
   }
 }
 
-// Function for calculating confidence
-export function getConfidence(charTimes) {
-  const confidence = {};
-  let globalSum = 0;
-  let globalLen = 0;
+// Function for normalizing speeds
+export function getKeySpeeds(charTimes) {
+  const speed = {};
+  let minTime = Infinity;
+  let maxTime = 0;
   for (let char in charTimes) {
-    const localSum = charTimes[char].reduce((acc, val) => acc + val)
-    const localLen = charTimes[char].length;
-    const mean = localSum / localLen;
-    globalSum += localSum;
-    globalLen += localLen;
-    confidence[char] = mean;
+    const mean = charTimes[char].reduce((acc, val) => acc + val) / charTimes[char].length;
+    speed[char] = {};
+    // Set avgTime and cpm
+    speed[char].avgTime = mean.toFixed(2);
+    speed[char].cpm = (60000 / mean).toFixed(2);
+    // Get max and min cpms
+    minTime = Math.min(minTime, speed[char].cpm);
+    maxTime = Math.max(maxTime, speed[char].cpm);
   }
-  for (let char in charTimes) {
-    confidence[char] = (globalSum / (globalLen * confidence[char])).toFixed(2);
+  for (let char in speed) {
+    const mean = speed[char].cpm;
+    speed[char].relSpeed = ((mean - minTime) / (maxTime - minTime)).toFixed(2);
   }
-  console.log(confidence);
-  return confidence;
+  return speed;
 }

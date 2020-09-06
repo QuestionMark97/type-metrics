@@ -1,10 +1,10 @@
 import * as types from '../constants/actionTypes';
-import { keyCodeToMatPos, getConfidence } from '../helpers/reducerHelpers';
+import { keyCodeToMatPos, getKeySpeeds } from '../helpers/reducerHelpers';
 
 const [bkrnd, clr] = ['#f8f8f8', '#666'];
 
 const initialState = {
-  confidence: {},
+  keyTimes: {},
   keyColors: [
     [
       [bkrnd, clr], [bkrnd, clr], [bkrnd, clr], [bkrnd, clr], [bkrnd, clr],
@@ -39,7 +39,7 @@ function keyboardReducer(parentState = {}, state = initialState, action = {}) {
       return { ...state, ...{ keyColors } };
 
     case types.RECALC_CONF:
-      return { ...state, ...{ confidence: getConfidence(charTimes) } };
+      return { ...state, ...{ keyTimes: getKeySpeeds(charTimes) } };
 
     default:
       return state;
