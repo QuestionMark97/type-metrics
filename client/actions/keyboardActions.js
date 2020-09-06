@@ -16,9 +16,9 @@ export function unhighlightKey(keyCode) {
   };
 }
 
-export function recalcConf() {
+export function recalcSpeed() {
   return {
     type: types.KEYBOARD,
-    subtype: types.RECALC_CONF
+    subtype: types.RECALC_SPEED
   };
 }
