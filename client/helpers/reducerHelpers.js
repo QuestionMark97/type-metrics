@@ -93,7 +93,12 @@ export function getKeySpeeds(charTimes) {
   let minTime = Infinity;
   let maxTime = 0;
   for (let char in charTimes) {
-    const mean = charTimes[char].reduce((acc, val) => acc + val) / charTimes[char].length;
+    let len = 0;
+    const sum = charTimes[char].reduce((tot, subArr) => {
+      len += subArr.length;
+      return tot + subArr.reduce((acc, val) => acc + val);
+    }, 0);
+    const mean = sum / len;
     speed[char] = {};
     // Set avgTime and cpm
     speed[char].avgTime = mean;

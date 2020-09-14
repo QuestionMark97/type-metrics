@@ -17,18 +17,23 @@ const initialState = {
 };
 
 function textReducer(state = initialState, action) {
-  const WORD_COUNT = 5;
-  let { text, position, errors, textGenerator, latestTime } = state;
+  const WORD_COUNT = 30;
+  const HISTORY = 3;
+  let { text, position, errors, textGenerator, latestTime, charTimes } = state;
   switch (action.type) {
     case types.MARKOV_RECEIVED:
       textGenerator = new TextGenerator(action.payload, { prob: 0.8, min: 3, max: 7 });
       textGenerator.setChars('enitrlsauodychgmpbkvwfzxqj');
-      textGenerator.addChars(5);
+      textGenerator.addChars(26);
       text = textGenerator.generateSentence(WORD_COUNT);
       return { ...state, ...{ textGenerator, text } };
 
     case types.SET_TIME:
       const date = new Date();
+      for (let char in charTimes) {
+        if (charTimes[char].length >= HISTORY) charTimes[char].shift();
+        charTimes[char].push([]);
+      }
       return { ...state, ...{ startTime: date, latestTime: date } };
 
     case types.ADD_ERROR:
@@ -36,12 +41,11 @@ function textReducer(state = initialState, action) {
       return { ...state, ...{ errors } };
 
     case types.UPDATE_POSITION:
-      const { charTimes } = state;
       const char = text[position];
       if (action.payload - 1) delete errors[position + 1];
       else if (position !== 0 && char !== ' ') {
-        if (!charTimes[char]) charTimes[char] = [new Date() - latestTime];
-        else charTimes[char].push(new Date() - latestTime);
+        if (!charTimes[char]) charTimes[char] = [[new Date() - latestTime]];
+        else charTimes[char][charTimes[char].length - 1].push(new Date() - latestTime);
       }
       position += action.payload;
       latestTime = new Date();
