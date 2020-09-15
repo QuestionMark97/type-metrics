@@ -17,8 +17,8 @@ const initialState = {
 };
 
 function textReducer(state = initialState, action) {
-  const WORD_COUNT = 5;
-  const INITIAL_CHARS = 5;
+  const WORD_COUNT = 30;
+  const INITIAL_CHARS = 26;
   const HISTORY = 3;
   let { text, position, errors, textGenerator, latestTime, charTimes } = state;
   switch (action.type) {

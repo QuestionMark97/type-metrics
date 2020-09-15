@@ -96,7 +96,7 @@ export function getKeySpeeds(charTimes) {
     let len = 0;
     const sum = charTimes[char].reduce((tot, subArr) => {
       len += subArr.length;
-      return tot + subArr.reduce((acc, val) => acc + val);
+      return tot + subArr.reduce((acc, val) => acc + val, 0);
     }, 0);
     const mean = sum / len;
     speed[char] = {};
