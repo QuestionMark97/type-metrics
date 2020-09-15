@@ -27,10 +27,10 @@ export function keyCodeToMatPos(keyCode) {
       return [0, 7];
     case 79:
     case 'o':
-      return [0, 9];
+      return [0, 8];
     case 80:
     case 'p':
-      return [0, 10];
+      return [0, 9];
     case 65:
     case 'a':
       return [1, 0];
@@ -80,7 +80,7 @@ export function keyCodeToMatPos(keyCode) {
     case 'm':
       return [2, 6];
     case 32:
-    case '':
+    case ' ':
       return [3, 0];
     default:
       return [-1, -1];

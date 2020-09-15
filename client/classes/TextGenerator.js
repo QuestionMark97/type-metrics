@@ -65,6 +65,11 @@ TextGenerator.prototype.addChars = function addChars(num = 1) {
   this._filterStates();
 };
 
+// Return chars in char object
+TextGenerator.prototype.getChars = function getChars() {
+  return Object.keys(this._charsObj);
+};
+
 // Generate sentence from chain object
 TextGenerator.prototype.generateSentence = function generateSentence(wordCount) {
   let sentence = this._generateWord();

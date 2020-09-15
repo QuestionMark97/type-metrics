@@ -9,4 +9,5 @@ export const UNHIGHLIGHT_KEY = 'UNHIGHLIGHT_KEY';
 export const GET_MARKOV_CHAIN = 'GET_MARKOV_CHAIN';
 export const MARKOV_RECEIVED = 'MARKOV_RECEIVED';
 export const RECALC_SPEED = 'RECALC_SPEED';
+export const UNLOCK_CHARS = 'UNLOCK_CHARS';
 export const KEYBOARD = 'KEYBOARD';

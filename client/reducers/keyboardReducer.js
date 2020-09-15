@@ -1,22 +1,27 @@
 import * as types from '../constants/actionTypes';
 import { keyCodeToMatPos, getKeySpeeds } from '../helpers/reducerHelpers';
 
-const [bkrnd, chr] = ['#f8f8f8', '#666'];
-
+const key = 'transparent';
+const bkrnd = '#f8f8f8';
+const chr = '#666';
 const initialState = {
   keyTimes: {},
   keyColors: [
     [
-      [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr],
-      [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr]
+      [key, key, key, key], [key, key, key, key], [key, key, key, key],
+      [key, key, key, key], [key, key, key, key], [key, key, key, key],
+      [key, key, key, key], [key, key, key, key], [key, key, key, key],
+      [key, key, key, key]
     ],
     [
-      [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr],
-      [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr]
+      [key, key, key, key], [key, key, key, key], [key, key, key, key],
+      [key, key, key, key], [key, key, key, key], [key, key, key, key],
+      [key, key, key, key], [key, key, key, key], [key, key, key, key]
     ],
     [
-      [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr],
-      [bkrnd, chr, bkrnd, chr], [bkrnd, chr, bkrnd, chr]
+      [key, key, key, key], [key, key, key, key], [key, key, key, key],
+      [key, key, key, key], [key, key, key, key], [key, key, key, key],
+      [key, key, key, key]
     ],
     [
       [bkrnd, chr, bkrnd, chr]
@@ -26,10 +31,17 @@ const initialState = {
 
 function keyboardReducer(parentState = {}, state = initialState, action = {}) {
   const keyColors = [...state.keyColors];
-  const [i, j] = keyCodeToMatPos(action.payload);
-  const { charTimes } = parentState;
+  let [i, j] = keyCodeToMatPos(action.payload);
+  const { charTimes, textGenerator } = parentState;
 
   switch (action.subtype) {
+    case types.UNLOCK_CHARS:
+      textGenerator.getChars().forEach((char) => {
+        [i, j] = keyCodeToMatPos(char);
+        keyColors[i][j] = [bkrnd, chr, bkrnd, chr];
+      });
+      return {  ...state, ...{ keyColors } };
+
     case types.HIGHLIGHT_KEY:
       if (i >= 0) {
         keyColors[i][j][0] = chr;

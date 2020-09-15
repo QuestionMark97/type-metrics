@@ -11,6 +11,7 @@ export function getMarkovChain() {
 export function markovReceived(json) {
   return {
     type: types.MARKOV_RECEIVED,
+    subtype: types.UNLOCK_CHARS,
     payload: json
   };
 }

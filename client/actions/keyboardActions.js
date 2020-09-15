@@ -22,3 +22,11 @@ export function recalcSpeed() {
     subtype: types.RECALC_SPEED
   };
 }
+
+export function unlockChar(char) {
+  return {
+    type: types.KEYBOARD,
+    subtype: types.UNLOCK_CHARS,
+    payload: keyCode
+  }
+}

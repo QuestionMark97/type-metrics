@@ -4,6 +4,7 @@ export function keyHandler(event, props) {
     props.back();
     return false;
   }
+  if (event.keyCode === 32 && props.position === 0) return false;
   if (event.keyCode === 32 || (event.keyCode >= 65 && event.keyCode <= 90)) {
     if (event.key !== props.text[props.position]) props.addError();
     props.forward();
