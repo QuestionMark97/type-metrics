@@ -3,8 +3,7 @@ import textReducer from './textReducer';
 import keyboardReducer from './keyboardReducer';
 
 const reducers = combineReducers({
-  text: textReducer,
-  keyboard: keyboardReducer
+  text: textReducer
 });
 
 export default reducers;

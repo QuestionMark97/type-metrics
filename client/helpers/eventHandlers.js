@@ -4,14 +4,16 @@ export function keyHandler(event, props) {
     props.back();
     return false;
   }
+  if (event.keyCode === 32 && props.position === 0) return false;
   if (event.keyCode === 32 || (event.keyCode >= 65 && event.keyCode <= 90)) {
     if (event.key !== props.text[props.position]) props.addError();
     props.forward();
   }
   if (props.position === 0) props.setTime();
   if (props.position === props.text.length - 1) {
-    props.recalcWpm(props.text, new Date() - props.startTime);
+    props.recalcWpm();
     props.recalcErr();
+    props.recalcSpeed();
     props.resetText();
   }
   return true;

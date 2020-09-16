@@ -1,7 +1,8 @@
 import React from 'react';
 
 function Character(props) {
-  return <span style={{ color: props.color }}>{props.value}</span>;
+  const val = (props.color === 'red' && props.value === ' ') ? '_' : props.value;
+  return <span style={{ color: props.color }}>{val}</span>;
 }
 
 export default Character;
