@@ -4,27 +4,28 @@ import { keyCodeToMatPos, getKeySpeeds } from '../helpers/reducerHelpers';
 const key = 'transparent';
 const bkrnd = '#f8f8f8';
 const chr = '#666';
+const data = false;
 const initialState = {
   keyTimes: {},
   keyColors: [
     [
-      [key, key, key, key], [key, key, key, key], [key, key, key, key],
-      [key, key, key, key], [key, key, key, key], [key, key, key, key],
-      [key, key, key, key], [key, key, key, key], [key, key, key, key],
-      [key, key, key, key]
+      [key, key, key, key, data], [key, key, key, key, data], [key, key, key, key, data],
+      [key, key, key, key, data], [key, key, key, key, data], [key, key, key, key, data],
+      [key, key, key, key, data], [key, key, key, key, data], [key, key, key, key, data],
+      [key, key, key, key, data]
     ],
     [
-      [key, key, key, key], [key, key, key, key], [key, key, key, key],
-      [key, key, key, key], [key, key, key, key], [key, key, key, key],
-      [key, key, key, key], [key, key, key, key], [key, key, key, key]
+      [key, key, key, key, data], [key, key, key, key, data], [key, key, key, key, data],
+      [key, key, key, key, data], [key, key, key, key, data], [key, key, key, key, data],
+      [key, key, key, key, data], [key, key, key, key, data], [key, key, key, key, data]
     ],
     [
-      [key, key, key, key], [key, key, key, key], [key, key, key, key],
-      [key, key, key, key], [key, key, key, key], [key, key, key, key],
-      [key, key, key, key]
+      [key, key, key, key, data], [key, key, key, key, data], [key, key, key, key, data],
+      [key, key, key, key, data], [key, key, key, key, data], [key, key, key, key, data],
+      [key, key, key, key, data]
     ],
     [
-      [bkrnd, chr, bkrnd, chr]
+      [bkrnd, chr, bkrnd, chr, data]
     ]
   ]
 };
@@ -38,7 +39,7 @@ function keyboardReducer(parentState = {}, state = initialState, action = {}) {
     case types.UNLOCK_CHARS:
       textGenerator.getChars().forEach((char) => {
         [i, j] = keyCodeToMatPos(char);
-        keyColors[i][j] = [bkrnd, chr, bkrnd, chr];
+        keyColors[i][j] = [bkrnd, chr, bkrnd, chr, data];
       });
       return {  ...state, ...{ keyColors } };
 
@@ -64,7 +65,7 @@ function keyboardReducer(parentState = {}, state = initialState, action = {}) {
           const speed = keySpeeds[char].relSpeed;
           const addon = 255 * (1 + speed) / 2;
           const color = blue + parseFloat((255 * (1 + speed) / 2).toFixed()).toString(16);
-          keyColors[i][j] = [color, bkrnd, color, bkrnd];
+          keyColors[i][j] = [color, bkrnd, color, bkrnd, true];
         }
       return { ...state, ...{ keyTimes: keySpeeds } };
 

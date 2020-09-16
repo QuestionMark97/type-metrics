@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 function Key(props) {
   const [i, j] = props.positions;
@@ -11,10 +10,4 @@ function Key(props) {
   );
 }
 
-function mapStateToProps({ text }) {
-  return {
-    colors: text.keyboard.keyColors
-  };
-}
-
-export default connect(mapStateToProps)(Key);
+export default Key;

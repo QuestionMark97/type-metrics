@@ -17,14 +17,17 @@ const initialState = {
 };
 
 function textReducer(state = initialState, action) {
-  const WORD_COUNT = 30;
-  const INITIAL_CHARS = 26;
-  const HISTORY = 3;
   let { text, position, errors, textGenerator, latestTime, charTimes } = state;
+  const TEXT_OPTIONS = { prob: 0.8, min: 3, max: 7 };
+  const CHAR_ORDER = 'enitrlsauodychgmpbkvwfzxqj';
+  const INITIAL_CHARS = 5;
+  const WORD_COUNT = 5;
+  const HISTORY = 3;
+
   switch (action.type) {
     case types.MARKOV_RECEIVED:
-      textGenerator = new TextGenerator(action.payload, { prob: 0.8, min: 3, max: 7 });
-      textGenerator.setChars('enitrlsauodychgmpbkvwfzxqj');
+      textGenerator = new TextGenerator(action.payload, TEXT_OPTIONS);
+      textGenerator.setChars(CHAR_ORDER);
       textGenerator.addChars(INITIAL_CHARS);
       text = textGenerator.generateSentence(WORD_COUNT);
       return { ...state, textGenerator, text, keyboard: keyboardReducer({ charTimes, textGenerator }, state.keyboard, action) };
