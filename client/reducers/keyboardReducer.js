@@ -41,21 +41,21 @@ function keyboardReducer(parentState = {}, state = initialState, action = {}) {
         [i, j] = keyCodeToMatPos(char);
         keyColors[i][j] = [bkrnd, chr, bkrnd, chr, data];
       });
-      return {  ...state, ...{ keyColors } };
+      return {  ...state, keyColors };
 
     case types.HIGHLIGHT_KEY:
       if (i >= 0) {
         keyColors[i][j][0] = chr;
         keyColors[i][j][1] = bkrnd;
       }
-      return { ...state, ...{ keyColors } };
+      return { ...state, keyColors };
 
     case types.UNHIGHLIGHT_KEY:
       if (i >= 0) {
         keyColors[i][j][0] = keyColors[i][j][2]
         keyColors[i][j][1] = keyColors[i][j][3]
       }
-      return { ...state, ...{ keyColors } };
+      return { ...state, keyColors };
 
     case types.RECALC_SPEED:
         const blue = '#3498db';
@@ -67,7 +67,7 @@ function keyboardReducer(parentState = {}, state = initialState, action = {}) {
           const color = blue + parseFloat((255 * (1 + speed) / 2).toFixed()).toString(16);
           keyColors[i][j] = [color, bkrnd, color, bkrnd, true];
         }
-      return { ...state, ...{ keyTimes: keySpeeds } };
+      return { ...state, keyTimes: keySpeeds };
 
     default:
       return state;

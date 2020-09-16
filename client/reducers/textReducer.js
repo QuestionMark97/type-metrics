@@ -20,8 +20,8 @@ function textReducer(state = initialState, action) {
   let { text, position, errors, textGenerator, latestTime, charTimes } = state;
   const TEXT_OPTIONS = { prob: 0.8, min: 3, max: 7 };
   const CHAR_ORDER = 'enitrlsauodychgmpbkvwfzxqj';
-  const INITIAL_CHARS = 5;
-  const WORD_COUNT = 5;
+  const INITIAL_CHARS = 26;
+  const WORD_COUNT = 30;
   const HISTORY = 3;
 
   switch (action.type) {
