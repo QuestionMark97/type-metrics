@@ -6,7 +6,7 @@ function KeyData(props) {
   return (
     <div className="popup-wrapper" style={{ display }}>
       <div className="popup">
-        <h2 textAlign="center">Data</h2>
+        <h2>{props.char}:</h2>
         <div>time: {avgTime.toFixed()}ms</div>
         <div>cpm: {cpm.toFixed()}</div>
         <div>relSpeed: {relSpeed.toFixed(2)}</div>

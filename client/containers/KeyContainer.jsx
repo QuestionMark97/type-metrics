@@ -9,7 +9,7 @@ function KeyContainer(props) {
   return (
     <div className="key-container">
       <Key positions={props.positions} colors={props.colors} char={props.char} />
-      <KeyData display={props.colors[i][j][4]} speed={speed} />
+      <KeyData display={props.colors[i][j][4]} speed={speed} char={props.char} />
     </div>
   );
 }
