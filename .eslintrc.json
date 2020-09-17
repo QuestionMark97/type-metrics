@@ -31,6 +31,7 @@
       "no-plusplus": "off",
       "max-classes-per-file": "off",
       "comma-dangle": ["error", "never"],
+      "no-underscore-dangle": "off",
       "class-methods-use-this": "off",
       "react/no-multi-comp": 0,
       "react/prop-types": 0
