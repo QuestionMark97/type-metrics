@@ -1,5 +1,7 @@
 function TextGenerator(chainObj, options) {
-  const { prob, min, max } = { prob: 0.5, min: 0, max: Infinity, ...options };
+  const { prob, min, max } = {
+    prob: 0.5, min: 0, max: Infinity, ...options
+  };
   this._chainObj = { chain: {}, starters: [], ...chainObj };
   this._filteredChain = JSON.parse(JSON.stringify(chainObj));
   this._prob = prob;
@@ -32,12 +34,12 @@ TextGenerator.prototype._filterStates = function filterStates() {
   const { chain, starters } = this._chainObj;
   this._filteredChain.starters = this._filterClusterArr(starters, this._charsObj);
   this._filteredChain.chain = {};
-  for (let cluster in chain) {
+  Object.entries(chain).forEach(([cluster, states]) => {
     if (this._validateCluster(cluster, this._charsObj)) {
-      const newCharStates = this._filterClusterArr(chain[cluster], this._charsObj);
+      const newCharStates = this._filterClusterArr(states, this._charsObj);
       this._filteredChain.chain[cluster] = newCharStates;
     }
-  }
+  });
 };
 
 // Generate word given chain object
@@ -45,7 +47,14 @@ TextGenerator.prototype._generateWord = function generateWord() {
   const { chain, starters } = this._filteredChain;
   let word = starters[Math.floor(Math.random() * starters.length)];
   let group = word;
-  while ((Object.hasOwnProperty.call(chain, group) && Math.random() < this._prob && word.length <= this._max) || word.length < this._min) {
+  while (
+    (
+      Object.hasOwnProperty.call(chain, group)
+      && Math.random() < this._prob
+      && word.length <= this._max
+    )
+    || word.length < this._min
+  ) {
     if (!chain[group] || chain[group].length === 0) break;
     group = chain[group][Math.floor(Math.random() * chain[group].length)];
     word += group;
@@ -73,7 +82,7 @@ TextGenerator.prototype.getChars = function getChars() {
 // Generate sentence from chain object
 TextGenerator.prototype.generateSentence = function generateSentence(wordCount) {
   let sentence = this._generateWord();
-  for (let i = 0; i < wordCount - 1; i++) sentence += ' ' + this._generateWord();
+  for (let i = 0; i < wordCount - 1; i++) sentence += ` ${this._generateWord()}`;
   return sentence;
 };
 

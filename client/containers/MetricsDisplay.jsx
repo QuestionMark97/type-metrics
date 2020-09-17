@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import WpmDisplay from '../components/WpmDisplay.jsx';
 import ErrDisplay from '../components/ErrDisplay.jsx';
 
-function MetricsDisplay (props) {
+function MetricsDisplay(props) {
   return (
     <div id='metrics-container'>
     <div id='metrics-display'>

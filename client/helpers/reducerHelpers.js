@@ -92,9 +92,9 @@ export function getKeySpeeds(charTimes) {
   const speed = {};
   let minTime = Infinity;
   let maxTime = 0;
-  for (let char in charTimes) {
+  Object.entries(charTimes).forEach(([char, data]) => {
     let len = 0;
-    const sum = charTimes[char].reduce((tot, subArr) => {
+    const sum = data.reduce((tot, subArr) => {
       len += subArr.length;
       return tot + subArr.reduce((acc, val) => acc + val, 0);
     }, 0);
@@ -106,10 +106,10 @@ export function getKeySpeeds(charTimes) {
     // Get max and min cpms
     minTime = Math.min(minTime, speed[char].cpm);
     maxTime = Math.max(maxTime, speed[char].cpm);
-  }
-  for (let char in speed) {
-    const mean = speed[char].cpm;
+  });
+  Object.entries(speed).forEach(([char, data]) => {
+    const mean = data.cpm;
     speed[char].relSpeed = (mean - minTime) / (maxTime - minTime);
-  }
+  });
   return speed;
 }

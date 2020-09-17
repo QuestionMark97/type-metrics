@@ -27,6 +27,6 @@ export function unlockChar(char) {
   return {
     type: types.KEYBOARD,
     subtype: types.UNLOCK_CHARS,
-    payload: keyCode
-  }
+    payload: char
+  };
 }

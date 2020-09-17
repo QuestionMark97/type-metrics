@@ -1,7 +1,7 @@
 import React from 'react';
 
 function KeyData(props) {
-  const display = (props.display) ? 'block': 'none';
+  const display = (props.display) ? 'block' : 'none';
   const { avgTime, cpm, relSpeed } = props.speed;
   return (
     <div className="popup-wrapper" style={{ display }}>
