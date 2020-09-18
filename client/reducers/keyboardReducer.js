@@ -79,7 +79,7 @@ function keyboardReducer(parentState = {}, state = initialState, action = {}) {
     case types.RECALC_KEY_ACC: {
       const [green, yellow, red] = ['#2ecc71', '#f1c40f', '#e74c3c'];
       const keyAcc = getKeyAccuracies(charErrors);
-      textGenerator.getChars().concat(' ').forEach((char) => {
+      Object.keys(charTimes).concat(' ').forEach((char) => {
         const [i, j] = keyCodeToMatPos(char);
         const err = (keyAcc[char] && keyAcc[char].relErr) || 0;
         const color = (err === 0) ? green : mixColors(yellow, red, 1 - err, err);
