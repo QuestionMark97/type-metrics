@@ -23,6 +23,13 @@ export function recalcSpeed() {
   };
 }
 
+export function recalcKeyAcc() {
+  return {
+    type: types.KEYBOARD,
+    subtype: types.RECALC_KEY_ACC
+  };
+}
+
 export function unlockChar(char) {
   return {
     type: types.KEYBOARD,

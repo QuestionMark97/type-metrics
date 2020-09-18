@@ -74,6 +74,11 @@ function keyboardReducer(parentState = {}, state = initialState, action = {}) {
       return { ...state, keyTimes: keySpeeds };
     }
 
+    case types.RECALC_KEY_ACC: {
+      console.log("Dispatched 'RECALC_KEY_ACC' action!");
+      return state;
+    }
+
     default: {
       return state;
     }

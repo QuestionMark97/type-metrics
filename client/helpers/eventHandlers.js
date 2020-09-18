@@ -14,6 +14,7 @@ export function keyHandler(event, props) {
     props.recalcWpm();
     props.recalcErr();
     props.recalcSpeed();
+    props.recalcKeyAcc();
     props.resetText();
   }
   return true;
