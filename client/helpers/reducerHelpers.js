@@ -125,6 +125,7 @@ export function getKeyAccuracies(charErrors) {
     Object.entries(charErrors).forEach(([char, err]) => {
       keyAcc[char] = {};
       keyAcc[char].relErr = err / maxErr;
+      keyAcc[char].errors = charErrors[char];
     });
   }
   return keyAcc;
