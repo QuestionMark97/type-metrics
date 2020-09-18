@@ -113,3 +113,19 @@ export function getKeySpeeds(charTimes) {
   });
   return speed;
 }
+
+// Function for normalizing errors
+export function getKeyAccuracies(charErrors) {
+  const keyAcc = {};
+  // Only execute when charErrors has at least one property
+  if (Object.keys(charErrors).length !== 0) {
+    // Get max number of errors
+    const maxErr = Object.values(charErrors).reduce((max, val) => Math.max(max, val));
+    // Populate keyAcc with properties
+    Object.entries(charErrors).forEach(([char, err]) => {
+      keyAcc[char] = {};
+      keyAcc[char].relErr = err / maxErr;
+    });
+  }
+  return keyAcc;
+}

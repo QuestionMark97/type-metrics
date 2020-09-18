@@ -12,18 +12,19 @@ const initialState = {
   startTime: 0,
   latestTime: 0,
   charTimes: {},
+  charErrors: {},
   keyboard: keyboardReducer()
 };
 
 function textReducer(state = initialState, action) {
-  const { errors, charTimes } = state;
+  const { errors, charTimes, charErrors } = state;
   let {
     text, position, textGenerator, latestTime
   } = state;
   const TEXT_OPTIONS = { prob: 0.8, min: 3, max: 7 };
   const CHAR_ORDER = 'enitrlsauodychgmpbkvwfzxqj';
-  const INITIAL_CHARS = 5;
-  const WORD_COUNT = 5;
+  const INITIAL_CHARS = 26;
+  const WORD_COUNT = 30;
   const HISTORY = 3;
 
   switch (action.type) {
@@ -51,6 +52,7 @@ function textReducer(state = initialState, action) {
 
     case types.ADD_ERROR: {
       errors[position] = true;
+      charErrors[text[position]] = charErrors[text[position]] + 1 || 1;
       return { ...state, errors };
     }
 
@@ -69,7 +71,7 @@ function textReducer(state = initialState, action) {
     case types.RESET_TEXT: {
       text = textGenerator.generateSentence(WORD_COUNT);
       return {
-        ...state, text, position: 0, errors: {}
+        ...state, text, position: 0, errors: {}, charErrors: {}
       };
     }
 
