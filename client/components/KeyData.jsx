@@ -3,7 +3,7 @@ import React from 'react';
 function KeyData(props) {
   const display = (props.display) ? 'block' : 'none';
   const { avgTime, cpm, relSpeed } = props.speed;
-  const { errors, relErr } = props.errors;
+  const { errors, dispRelErr } = props.errors;
   return (
     <div className="popup-wrapper" style={{ display }}>
       <div className="popup hidden">
@@ -15,7 +15,7 @@ function KeyData(props) {
       <div className="popup">
         <h2>{props.char}:</h2>
         <div>errors: {errors}</div>
-        <div>relErr: {relErr.toFixed(2)}</div>
+        <div>relErr: {dispRelErr.toFixed(2)}</div>
       </div>
     </div>
   );

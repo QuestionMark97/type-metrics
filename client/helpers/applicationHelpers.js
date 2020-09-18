@@ -22,10 +22,11 @@ export function mixColors(color1, color2, weight1 = 1, weight2 = 1) {
   const avgHex = (hex1, hex2, w1, w2) => (
     (w1 * parseInt(hex1, 16) + w2 * parseInt(hex2, 16)) / (w1 + w2)
   );
-  const [r1, g1, b1] = splitColor(color1);
-  const [r2, g2, b2] = splitColor(color2);
-  const r = Number(avgHex(r1, r2, weight1, weight2).toFixed()).toString(16);
-  const g = Number(avgHex(g1, g2, weight1, weight2).toFixed()).toString(16);
-  const b = Number(avgHex(b1, b2, weight1, weight2).toFixed()).toString(16);
+  const [rgb1, rgb2] = [splitColor(color1), splitColor(color2)];
+  const [r, g, b] = rgb1.map((val, i) => {
+    const hex = Number(avgHex(rgb1[i], rgb2[i], weight1, weight2).toFixed()).toString(16);
+    if (hex.length === 1) return `0${hex}`;
+    return hex;
+  });
   return `#${r}${g}${b}`;
 }
