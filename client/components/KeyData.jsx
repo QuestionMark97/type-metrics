@@ -6,13 +6,16 @@ function KeyData(props) {
   const { errors, relErr } = props.errors;
   return (
     <div className="popup-wrapper" style={{ display }}>
-      <div className="popup">
+      <div className="popup hidden">
         <h2>{props.char}:</h2>
         <div>time: {avgTime.toFixed()}ms</div>
         <div>cpm: {cpm.toFixed()}</div>
         <div>relSpeed: {relSpeed.toFixed(2)}</div>
+      </div>
+      <div className="popup">
+        <h2>{props.char}:</h2>
         <div>errors: {errors}</div>
-        <div>relErr: {relErr}</div>
+        <div>relErr: {relErr.toFixed(2)}</div>
       </div>
     </div>
   );
