@@ -134,7 +134,8 @@ export function getKeyAccuracies(charErrors, unlockedChars) {
       const trueRelErr = avgErr / maxErr;
       const relErr = ((avgErr - minErr) / (maxErr - minErr));
       keyAcc[char].dispRelErr = (length === unlockedChars.length + 1) ? relErr : trueRelErr;
-      keyAcc[char].colorRelErr = relErr || trueRelErr;
+      keyAcc[char].colorRelErr = (relErr === undefined
+        || Number.isNaN(relErr)) ? trueRelErr : relErr;
     });
   }
   return keyAcc;

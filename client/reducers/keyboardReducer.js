@@ -78,13 +78,12 @@ function keyboardReducer(parentState = {}, state = initialState, action = {}) {
 
     case types.RECALC_KEY_ACC: {
       const charErrors = deepClone(parentState.charErrors);
-      console.log(charErrors);
       const [green, yellow, red] = ['#2ecc71', '#f1c40f', '#e74c3c'];
       const keyAcc = getKeyAccuracies(charErrors, textGenerator.getChars());
       Object.keys(charTimes).concat(' ').forEach((char) => {
         const [i, j] = keyCodeToMatPos(char);
-        const { errors, colorRelErr: relErr } = keyAcc[char] || { errors: 0, colorRelErr: 0 };
-        const color = (errors === 0) ? green : mixColors(yellow, red, 1 - relErr, relErr);
+        const { avgErr, colorRelErr: relErr } = keyAcc[char] || { avgErr: 0, colorRelErr: 0 };
+        const color = (avgErr === 0) ? green : mixColors(yellow, red, 1 - relErr, relErr);
         keyColors[i][j] = [color, bkrnd, color, bkrnd, true];
       });
       return { ...state, keyAcc, keyColors };
