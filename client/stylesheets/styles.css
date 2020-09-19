@@ -112,6 +112,10 @@ h1 {
   background-color: #555555dd;
 }
 
+.hidden {
+  display: none;
+}
+
 .key-container:hover .popup {
   visibility: visible;
   opacity: 1;
