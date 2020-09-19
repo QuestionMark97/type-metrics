@@ -103,7 +103,7 @@ export function getKeySpeeds(charTimes) {
     // Set avgTime and cpm
     speed[char].avgTime = mean;
     speed[char].cpm = 60000 / mean;
-    // Get max and min cpms
+    // Get max and mi n cpms
     minTime = Math.min(minTime, speed[char].cpm);
     maxTime = Math.max(maxTime, speed[char].cpm);
   });
@@ -117,22 +117,24 @@ export function getKeySpeeds(charTimes) {
 // Function for normalizing errors
 export function getKeyAccuracies(charErrors, unlockedChars) {
   const keyAcc = {};
+  let minErr = Infinity;
+  let maxErr = 0;
   // Only execute when charErrors has at least one property
   const { length } = Object.keys(charErrors);
   if (length !== 0) {
     // Get max/min number of non-zero errors
-    const [maxErr, minErr] = Object.values(charErrors).reduce(([max, min], val) => (
-      [Math.max(max, val), Math.min(min, val)]
-    ), [0, Infinity]);
+    Object.entries(charErrors).forEach(([char, data]) => {
+      const mean = data.reduce((acc, val) => acc + val, 0) / data.length;
+      keyAcc[char] = { avgErr: mean };
+      minErr = Math.min(minErr, mean);
+      maxErr = Math.max(maxErr, mean);
+    });
     // Populate keyAcc with properties
-    Object.entries(charErrors).forEach(([char, err]) => {
-      const trueRelErr = err / maxErr;
-      const relErr = ((err - minErr) / (maxErr - minErr));
-      keyAcc[char] = {
-        dispRelErr: (length === unlockedChars.length + 1) ? relErr : trueRelErr,
-        colorRelErr: relErr || trueRelErr,
-        errors: charErrors[char]
-      };
+    Object.entries(keyAcc).forEach(([char, { avgErr }]) => {
+      const trueRelErr = avgErr / maxErr;
+      const relErr = ((avgErr - minErr) / (maxErr - minErr));
+      keyAcc[char].dispRelErr = (length === unlockedChars.length + 1) ? relErr : trueRelErr;
+      keyAcc[char].colorRelErr = relErr || trueRelErr;
     });
   }
   return keyAcc;

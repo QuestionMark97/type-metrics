@@ -33,7 +33,7 @@ const initialState = {
 };
 
 function keyboardReducer(parentState = {}, state = initialState, action = {}) {
-  const { charTimes, textGenerator, charErrors } = parentState;
+  const { charTimes, textGenerator } = parentState;
   const keyColors = deepClone(state.keyColors);
 
   switch (action.subtype) {
@@ -77,6 +77,8 @@ function keyboardReducer(parentState = {}, state = initialState, action = {}) {
     }
 
     case types.RECALC_KEY_ACC: {
+      const charErrors = deepClone(parentState.charErrors);
+      console.log(charErrors);
       const [green, yellow, red] = ['#2ecc71', '#f1c40f', '#e74c3c'];
       const keyAcc = getKeyAccuracies(charErrors, textGenerator.getChars());
       Object.keys(charTimes).concat(' ').forEach((char) => {

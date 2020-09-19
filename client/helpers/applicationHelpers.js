@@ -1,9 +1,9 @@
 export function deepClone(...objs) {
-  if (typeof objs !== 'object') throw new TypeError("Expected argument of type 'object'");
   const clones = [];
   for (let i = 0; i < objs.length; i++) {
     const obj = objs[i];
     const clone = {};
+    if (typeof obj !== 'object') throw new TypeError("Expected argument of type 'object'");
     Object.getOwnPropertyNames(obj).forEach((key) => {
       const val = obj[key];
       if (typeof val === 'object') {

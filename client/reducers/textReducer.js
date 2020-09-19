@@ -1,3 +1,4 @@
+import { deepClone } from '../helpers/applicationHelpers';
 import keyboardReducer from './keyboardReducer';
 import * as types from '../constants/actionTypes';
 import TextGenerator from '../classes/TextGenerator';
@@ -17,7 +18,8 @@ const initialState = {
 };
 
 function textReducer(state = initialState, action) {
-  const { errors, charTimes, charErrors } = state;
+  const { errors, charTimes } = state;
+  const charErrors = deepClone(state.charErrors);
   let {
     text, position, textGenerator, latestTime
   } = state;
@@ -37,7 +39,7 @@ function textReducer(state = initialState, action) {
         ...state,
         textGenerator,
         text,
-        keyboard: keyboardReducer({ charTimes, textGenerator }, state.keyboard, action)
+        keyboard: keyboardReducer({ charTimes, charErrors, textGenerator }, state.keyboard, action)
       };
     }
 
@@ -51,9 +53,11 @@ function textReducer(state = initialState, action) {
     }
 
     case types.ADD_ERROR: {
+      const char = text[position];
       errors[position] = true;
-      charErrors[text[position]] = charErrors[text[position]] + 1 || 1;
-      return { ...state, errors };
+      if (!charErrors[char]) charErrors[char] = [1];
+      else charErrors[char][charErrors[char].length - 1]++;
+      return { ...state, errors, charErrors };
     }
 
     case types.UPDATE_POSITION: {
@@ -70,8 +74,12 @@ function textReducer(state = initialState, action) {
 
     case types.RESET_TEXT: {
       text = textGenerator.generateSentence(WORD_COUNT);
+      Object.keys(charErrors).forEach((char) => {
+        if (charErrors[char].length >= HISTORY) charErrors[char].shift();
+        charErrors[char].push(0);
+      });
       return {
-        ...state, text, position: 0, errors: {}, charErrors: {}
+        ...state, text, position: 0, errors: {}, charErrors
       };
     }
 
