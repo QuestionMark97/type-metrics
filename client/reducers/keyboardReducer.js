@@ -33,12 +33,11 @@ const initialState = {
 };
 
 function keyboardReducer(parentState = {}, state = initialState, action = {}) {
-  const { charTimes, textGenerator } = parentState;
   const keyColors = deepClone(state.keyColors);
 
   switch (action.subtype) {
     case types.UNLOCK_CHARS: {
-      textGenerator.getChars().forEach((char) => {
+      parentState.textGenerator.getChars().forEach((char) => {
         const [i, j] = keyCodeToMatPos(char);
         keyColors[i][j] = [bkrnd, chr, bkrnd, chr, popup];
       });
@@ -66,6 +65,7 @@ function keyboardReducer(parentState = {}, state = initialState, action = {}) {
 
     case types.RECALC_SPEED: {
       const blue = '#3498db';
+      const charTimes = deepClone(parentState.charTimes);
       const keySpeeds = getKeySpeeds(charTimes);
       Object.entries(keySpeeds).forEach(([char, data]) => {
         const [i, j] = keyCodeToMatPos(char);
@@ -77,9 +77,9 @@ function keyboardReducer(parentState = {}, state = initialState, action = {}) {
     }
 
     case types.RECALC_KEY_ACC: {
-      const charErrors = deepClone(parentState.charErrors);
+      const [charTimes, charErrors] = deepClone(parentState.charTimes, parentState.charErrors);
       const [green, yellow, red] = ['#2ecc71', '#f1c40f', '#e74c3c'];
-      const keyAcc = getKeyAccuracies(charErrors, textGenerator.getChars());
+      const keyAcc = getKeyAccuracies(charErrors, parentState.textGenerator.getChars());
       Object.keys(charTimes).concat(' ').forEach((char) => {
         const [i, j] = keyCodeToMatPos(char);
         const { avgErr, colorRelErr: relErr } = keyAcc[char] || { avgErr: 0, colorRelErr: 0 };
