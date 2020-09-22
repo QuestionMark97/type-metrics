@@ -23,8 +23,8 @@ function SpaceRow(props) {
 
 function mapStateToProps({ text }) {
   return {
-    backgroundColor: text.keyboard.keyColors[3][0][0],
-    color: text.keyboard.keyColors[3][0][1]
+    backgroundColor: text.keyboard.keyColors[' '].char,
+    color: text.keyboard.keyColors[' '].key
   };
 }
 

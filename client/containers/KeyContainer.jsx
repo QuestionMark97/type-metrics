@@ -4,17 +4,17 @@ import Key from '../components/Key.jsx';
 import KeyData from '../components/KeyData.jsx';
 
 function KeyContainer(props) {
-  const [i, j] = props.positions;
-  const speed = props.speeds[props.char] || { avgTime: 0, cpm: 0, relSpeed: 0 };
-  const errors = props.errors[props.char] || { avgErr: 0, dispRelErr: 0 };
+  const { char } = props;
+  const speed = props.speeds[char] || { avgTime: 0, cpm: 0, relSpeed: 0 };
+  const errors = props.errors[char] || { avgErr: 0, dispRelErr: 0 };
   return (
     <div className="key-container">
-      <Key positions={props.positions} colors={props.colors} char={props.char} />
+      <Key colors={props.colors} char={char} />
       <KeyData
-        display={props.colors[i][j][4]}
+        display={props.colors[char].popup}
         speed={speed}
         errors={errors}
-        char={props.char}
+        char={char}
       />
     </div>
   );
@@ -23,7 +23,7 @@ function KeyContainer(props) {
 function mapStateToProps({ text: { keyboard } }) {
   return {
     colors: keyboard.keyColors,
-    speeds: keyboard.keyTimes,
+    speeds: keyboard.keySpeeds,
     errors: keyboard.keyAcc
   };
 }

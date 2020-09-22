@@ -62,14 +62,17 @@ function textReducer(state = initialState, action) {
       const [charTimes, errors] = deepClone(state.charTimes, state.errors);
       let { position, latestTime } = state;
       const char = state.text[state.position];
-      if (action.payload - 1) delete errors[position - 1];
-      else if (position !== 0 && char !== ' ') {
+      if (action.payload - 1) {
+        delete errors[position - 1];
+      } else if (position !== 0 && char !== ' ') {
         if (!charTimes[char]) charTimes[char] = [[new Date() - latestTime]];
         else charTimes[char][charTimes[char].length - 1].push(new Date() - latestTime);
       }
       position += action.payload;
       latestTime = new Date();
-      return { ...state, position, latestTime };
+      return {
+        ...state, position, errors, latestTime, charTimes
+      };
     }
 
     case types.RESET_TEXT: {
