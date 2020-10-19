@@ -5,40 +5,10 @@ import { getKeySpeeds, getKeyAccuracies } from '../helpers/reducerHelpers';
 const none = 'transparent';
 const bkrnd = '#f8f8f8';
 const chr = '#666';
-const popup = false;
-const initialState = {
-  keySpeeds: {},
-  keyAcc: {},
-  keyColors: {
-    q: { char: none, key: none, popup: false },
-    w: { char: none, key: none, popup: false },
-    e: { char: none, key: none, popup: false },
-    r: { char: none, key: none, popup: false },
-    t: { char: none, key: none, popup: false },
-    y: { char: none, key: none, popup: false },
-    u: { char: none, key: none, popup: false },
-    i: { char: none, key: none, popup: false },
-    o: { char: none, key: none, popup: false },
-    p: { char: none, key: none, popup: false },
-    a: { char: none, key: none, popup: false },
-    s: { char: none, key: none, popup: false },
-    d: { char: none, key: none, popup: false },
-    f: { char: none, key: none, popup: false },
-    g: { char: none, key: none, popup: false },
-    h: { char: none, key: none, popup: false },
-    j: { char: none, key: none, popup: false },
-    k: { char: none, key: none, popup: false },
-    l: { char: none, key: none, popup: false },
-    z: { char: none, key: none, popup: false },
-    x: { char: none, key: none, popup: false },
-    c: { char: none, key: none, popup: false },
-    v: { char: none, key: none, popup: false },
-    b: { char: none, key: none, popup: false },
-    n: { char: none, key: none, popup: false },
-    m: { char: none, key: none, popup: false },
-    ' ': { char: none, key: none, popup: false }
-  },
-  defKeyColors: {
+const initialState = new function initialState() {
+  this.keySpeeds = {};
+  this.keyAcc = {};
+  this.defaultColors = {
     q: { char: none, key: none },
     w: { char: none, key: none },
     e: { char: none, key: none },
@@ -66,20 +36,22 @@ const initialState = {
     n: { char: none, key: none },
     m: { char: none, key: none },
     ' ': { char: none, key: none }
-  }
-};
+  };
+  this.keyColors = { ...this.defaultColors };
+  this.popups = {};
+}();
 
 function keyboardReducer(parentState = {}, state = initialState, action = {}) {
   const keyColors = deepClone(state.keyColors);
 
   switch (action.subtype) {
     case types.UNLOCK_CHARS: {
-      const defKeyColors = deepClone(state.defKeyColors);
+      const defaultColors = deepClone(state.defaultColors);
       parentState.textGenerator.getChars().forEach((char) => {
-        keyColors[char] = { char: bkrnd, key: chr, popup };
-        defKeyColors[char] = { char: bkrnd, key: chr };
+        keyColors[char] = { char: bkrnd, key: chr };
+        defaultColors[char] = { char: bkrnd, key: chr };
       });
-      return { ...state, keyColors, defKeyColors };
+      return { ...state, keyColors, defaultColors };
     }
 
     case types.HIGHLIGHT_KEY: {
@@ -92,10 +64,10 @@ function keyboardReducer(parentState = {}, state = initialState, action = {}) {
     }
 
     case types.UNHIGHLIGHT_KEY: {
-      const defKeyColors = deepClone(state.defKeyColors);
+      const defaultColors = deepClone(state.defaultColors);
       const char = action.payload;
       if (keyColors[char]) {
-        const { char: charColor, key } = defKeyColors[char];
+        const { char: charColor, key } = defaultColors[char];
         keyColors[char].char = charColor;
         keyColors[char].key = key;
       }
@@ -104,31 +76,37 @@ function keyboardReducer(parentState = {}, state = initialState, action = {}) {
 
     case types.RECALC_SPEED: {
       const blue = '#3498db';
-      const [charTimes, defKeyColors] = deepClone(parentState.charTimes, state.defKeyColors);
+      const [charTimes, defaultColors] = deepClone(parentState.charTimes, state.defaultColors);
+      const popups = {};
       const keySpeeds = getKeySpeeds(charTimes);
       Object.entries(keySpeeds).forEach(([char, data]) => {
         const speed = data.relSpeed;
         const color = blue + parseFloat(((255 * (1 + speed)) / 2).toFixed()).toString(16);
-        keyColors[char] = { char: color, key: bkrnd, popup: true };
-        defKeyColors[char] = { char: color, key: bkrnd };
+        defaultColors[char] = { char: color, key: bkrnd };
+        keyColors[char] = { char: color, key: bkrnd };
+        popups[char] = true;
       });
-      return { ...state, keySpeeds, defKeyColors };
+      return {
+        ...state, keySpeeds, defaultColors, popups
+      };
     }
 
     case types.RECALC_KEY_ACC: {
-      const [charTimes, charErrors, defKeyColors] = deepClone(
-        parentState.charTimes, parentState.charErrors, state.defKeyColors
+      const [charTimes, charErrors, defaultColors] = deepClone(
+        parentState.charTimes, parentState.charErrors, state.defaultColors
       );
+      const popups = {};
       const [green, yellow, red] = ['#2ecc71', '#f1c40f', '#e74c3c'];
       const keyAcc = getKeyAccuracies(charErrors, parentState.textGenerator.getChars());
       Object.keys(charTimes).concat(' ').forEach((char) => {
         const { avgErr, colorRelErr: relErr } = keyAcc[char] || { avgErr: 0, colorRelErr: 0 };
         const color = (avgErr === 0) ? green : mixColors(yellow, red, 1 - relErr, relErr);
-        keyColors[char] = { char: color, key: bkrnd, popup: true };
-        defKeyColors[char] = { char: color, key: bkrnd };
+        defaultColors[char] = { char: color, key: bkrnd };
+        keyColors[char] = { char: color, key: bkrnd };
+        popups[char] = true;
       });
       return {
-        ...state, keyAcc, keyColors, defKeyColors
+        ...state, keyAcc, keyColors, defaultColors, popups
       };
     }
 

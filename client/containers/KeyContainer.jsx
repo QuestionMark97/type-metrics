@@ -9,9 +9,9 @@ function KeyContainer(props) {
   const errors = props.errors[char] || { avgErr: 0, dispRelErr: 0 };
   return (
     <div className="key-container">
-      <Key colors={props.colors} char={char} />
+      <Key color={props.colors[char]} char={char} />
       <KeyData
-        display={props.colors[char].popup}
+        display={!!props.popups[char]}
         speed={speed}
         errors={errors}
         char={char}
@@ -20,11 +20,12 @@ function KeyContainer(props) {
   );
 }
 
-function mapStateToProps({ text: { keyboard } }) {
+function mapStateToProps({ text: { keyboard: state } }) {
   return {
-    colors: keyboard.keyColors,
-    speeds: keyboard.keySpeeds,
-    errors: keyboard.keyAcc
+    colors: state.keyColors,
+    speeds: state.keySpeeds,
+    errors: state.keyAcc,
+    popups: state.popups
   };
 }
 

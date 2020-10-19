@@ -4,8 +4,8 @@ function Key(props) {
   const { char } = props;
   return (
     <div className='key charkey' style={{
-      backgroundColor: props.colors[char].char,
-      color: props.colors[char].key
+      backgroundColor: props.color.char,
+      color: props.color.key
     }}>{char}</div>
   );
 }

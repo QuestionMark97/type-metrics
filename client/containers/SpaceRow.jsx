@@ -21,10 +21,10 @@ function SpaceRow(props) {
   );
 }
 
-function mapStateToProps({ text }) {
+function mapStateToProps({ text: { keyboard: state } }) {
   return {
-    backgroundColor: text.keyboard.keyColors[' '].char,
-    color: text.keyboard.keyColors[' '].key
+    backgroundColor: state.keyColors[' '].char,
+    color: state.keyColors[' '].key
   };
 }
 
