@@ -22,10 +22,10 @@ export function keyHandler(event, props) {
 
 export function keydownHandler(event, props) {
   if (event.keyCode === 8) event.preventDefault();
-  props.highlightKey(event.keyCode);
+  props.highlightKey(event.key);
 }
 
 export function keyupHandler(event, props) {
   if (event.keyCode === 8) event.preventDefault();
-  props.unhighlightKey(event.keyCode);
+  props.unhighlightKey(event.key);
 }

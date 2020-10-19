@@ -14,7 +14,7 @@ function KeyData(props) {
       </div>
       <div className="popup">
         <h2>{props.char}:</h2>
-        <div>errors: {avgErr}</div>
+        <div>errors: {avgErr.toFixed(2)}</div>
         <div>relErr: {dispRelErr.toFixed(2)}</div>
       </div>
     </div>

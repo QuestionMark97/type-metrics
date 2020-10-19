@@ -10,7 +10,7 @@ function KeyRow(props) {
   if (props.row === 2) keys.push(<DummieKey width='81px' key='dummie_0' />);
 
   for (let i = 0; i < props.keys.length; i++) {
-    keys.push(<KeyContainer positions={[props.row, i]} char={props.keys[i]} key={`char_${i}`} />);
+    keys.push(<KeyContainer char={props.keys[i]} key={`char_${i}`} />);
   }
 
   if (props.row === 0) for (let i = 0; i < 2; i++) keys.push(<DummieKey width='40px' key={`dummie_${i + 1}`} />);

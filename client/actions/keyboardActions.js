@@ -1,18 +1,18 @@
 import * as types from '../constants/actionTypes';
 
-export function highlightKey(keyCode) {
+export function highlightKey(char) {
   return {
     type: types.KEYBOARD,
     subtype: types.HIGHLIGHT_KEY,
-    payload: keyCode
+    payload: char
   };
 }
 
-export function unhighlightKey(keyCode) {
+export function unhighlightKey(char) {
   return {
     type: types.KEYBOARD,
     subtype: types.UNHIGHLIGHT_KEY,
-    payload: keyCode
+    payload: char
   };
 }
 
