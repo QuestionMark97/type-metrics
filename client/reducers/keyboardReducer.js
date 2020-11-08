@@ -74,23 +74,6 @@ function keyboardReducer(parentState = {}, state = initialState, action = {}) {
       return { ...state, keyColors };
     }
 
-    case types.RECALC_SPEED: {
-      const blue = '#3498db';
-      const [charTimes, defaultColors] = deepClone(parentState.charTimes, state.defaultColors);
-      const popups = {};
-      const keySpeeds = getKeySpeeds(charTimes);
-      Object.entries(keySpeeds).forEach(([char, data]) => {
-        const speed = data.relSpeed;
-        const color = blue + parseFloat(((255 * (1 + speed)) / 2).toFixed()).toString(16);
-        defaultColors[char] = { char: color, key: bkrnd };
-        keyColors[char] = { char: color, key: bkrnd };
-        popups[char] = true;
-      });
-      return {
-        ...state, keySpeeds, defaultColors, popups
-      };
-    }
-
     case types.RECALC_KEY_ACC: {
       const [charTimes, charErrors, defaultColors] = deepClone(
         parentState.charTimes, parentState.charErrors, state.defaultColors
@@ -107,6 +90,23 @@ function keyboardReducer(parentState = {}, state = initialState, action = {}) {
       });
       return {
         ...state, keyAcc, keyColors, defaultColors, popups
+      };
+    }
+
+    case types.RECALC_SPEED: {
+      const [charTimes, defaultColors] = deepClone(parentState.charTimes, state.defaultColors);
+      const popups = {};
+      const keySpeeds = getKeySpeeds(charTimes);
+      Object.entries(keySpeeds).forEach(([char, data]) => {
+        const speed = data.relSpeed;
+        const opaqueColor = defaultColors[char].char.slice(0, 7);
+        const color = opaqueColor + parseFloat(((255 * (1 + speed)) / 2).toFixed()).toString(16);
+        defaultColors[char] = { char: color, key: bkrnd };
+        keyColors[char] = { char: color, key: bkrnd };
+        popups[char] = true;
+      });
+      return {
+        ...state, keySpeeds, keyColors, defaultColors, popups
       };
     }
 

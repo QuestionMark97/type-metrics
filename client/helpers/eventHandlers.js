@@ -13,8 +13,8 @@ export function keyHandler(event, props) {
   if (props.position === props.text.length - 1) {
     props.recalcWpm();
     props.recalcErr();
-    props.recalcSpeed();
     props.recalcKeyAcc();
+    props.recalcSpeed();
     props.resetText();
   }
   return true;
