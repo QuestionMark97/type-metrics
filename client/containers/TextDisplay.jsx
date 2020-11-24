@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/textActions';
-import { recalcSpeed, recalcKeyAcc } from '../actions/keyboardActions';
+import { recalcSpeed, recalcKeyAcc, unlockChar } from '../actions/keyboardActions';
 import Character from '../components/Character.jsx';
 import { keyHandler } from '../helpers/eventHandlers';
 
@@ -57,7 +57,8 @@ function mapDispatchToProps(dispatch) {
     recalcWpm: (...args) => dispatch(actions.recalcWpm(...args)),
     recalcErr: (...args) => dispatch(actions.recalcErr(...args)),
     recalcSpeed: (...args) => dispatch(recalcSpeed(...args)),
-    recalcKeyAcc: (...args) => dispatch(recalcKeyAcc(...args))
+    recalcKeyAcc: (...args) => dispatch(recalcKeyAcc(...args)),
+    unlockChar: (...args) => dispatch(unlockChar(...args))
   };
 }
 

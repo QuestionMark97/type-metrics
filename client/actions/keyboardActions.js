@@ -30,10 +30,9 @@ export function recalcKeyAcc() {
   };
 }
 
-export function unlockChar(char) {
+export function unlockChar() {
   return {
     type: types.KEYBOARD,
-    subtype: types.UNLOCK_CHARS,
-    payload: char
+    subtype: types.UNLOCK_CHARS
   };
 }

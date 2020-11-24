@@ -2,6 +2,8 @@ import { deepClone, mixColors } from '../helpers/applicationHelpers';
 import * as types from '../constants/actionTypes';
 import { getKeySpeeds, getKeyAccuracies } from '../helpers/reducerHelpers';
 
+const KEYSPEED = 200;
+const KEYACC = 1;
 const none = 'transparent';
 const bkrnd = '#f8f8f8';
 const chr = '#666';
@@ -47,9 +49,17 @@ function keyboardReducer(parentState = {}, state = initialState, action = {}) {
   switch (action.subtype) {
     case types.UNLOCK_CHARS: {
       const defaultColors = deepClone(state.defaultColors);
+      const unlock = parentState.textGenerator.getChars().reduce((tot, char) => {
+        const cpm = state.keySpeeds[char] ? state.keySpeeds[char].cpm : 0;
+        const avgErr = state.keyAcc[char] ? state.keyAcc[char].avgErr : 0;
+        return tot && (cpm >= KEYSPEED) && (avgErr <= KEYACC);
+      }, true);
+      if (unlock) parentState.textGenerator.addChars();
       parentState.textGenerator.getChars().forEach((char) => {
-        keyColors[char] = { char: bkrnd, key: chr };
-        defaultColors[char] = { char: bkrnd, key: chr };
+        if (defaultColors[char].char === none) {
+          defaultColors[char] = { char: bkrnd, key: chr };
+          keyColors[char] = { char: bkrnd, key: chr };
+        }
       });
       return { ...state, keyColors, defaultColors };
     }
