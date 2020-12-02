@@ -3,6 +3,22 @@ const errFactory = require('../errors/errorFactory');
 
 const userController = {};
 
+// Middleware for listing all user resources
+// eslint-disable-next-line consistent-return
+userController.list = (req, res, next) => {
+  try {
+    const queryStr = 'SELECT username, firstname, lastname FROM users';
+    db.query(queryStr)
+      .then((data) => {
+        res.locals.users = data.rows;
+        return next();
+      })
+      .catch((err) => next(errFactory(err, errFactory.LIST, 400)));
+  } catch (err) {
+    return next(errFactory(err, errFactory.LIST));
+  }
+};
+
 // Middleware for creating user resource
 // eslint-disable-next-line consistent-return
 userController.create = (req, res, next) => {
@@ -24,7 +40,7 @@ userController.create = (req, res, next) => {
 // eslint-disable-next-line consistent-return
 userController.read = (req, res, next) => {
   try {
-    const queryStr = 'SELECT * FROM users WHERE id = $1;';
+    const queryStr = 'SELECT username, email, firstname, lastname, created_at FROM users WHERE id = $1;';
     const params = [req.params.id];
     db.query(queryStr, params)
       .then((data) => {

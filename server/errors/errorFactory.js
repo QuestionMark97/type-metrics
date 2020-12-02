@@ -1,6 +1,12 @@
 function errorFactory(err, CRUDType, status = 500) {
   const errObj = { status };
   switch (CRUDType) {
+    case this.LIST:
+      return {
+        ...errObj,
+        log: err,
+        msg: { err: 'There was a problem listing resources' }
+      };
     case this.CREATE:
       return {
         ...errObj,
@@ -30,6 +36,7 @@ function errorFactory(err, CRUDType, status = 500) {
   }
 }
 
+errorFactory.LIST = 'LIST';
 errorFactory.CREATE = 'CREATE';
 errorFactory.READ = 'READ';
 errorFactory.UPDATE = 'UPDATE';
