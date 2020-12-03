@@ -31,6 +31,12 @@ function errorFactory(err, CRUDType, status = 500) {
         log: err,
         msg: { err: 'There was a problem destroying resource' }
       };
+    case this.TOKEN:
+      return {
+        ...errObj,
+        log: err,
+        msg: { err: 'There was a problem creating token' }
+      };
     default:
       return {};
   }
@@ -41,5 +47,6 @@ errorFactory.CREATE = 'CREATE';
 errorFactory.READ = 'READ';
 errorFactory.UPDATE = 'UPDATE';
 errorFactory.DESTROY = 'DESTROY';
+errorFactory.DESTROY = 'TOKEN';
 
 module.exports = errorFactory;
